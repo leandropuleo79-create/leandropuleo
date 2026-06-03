@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Diccionario HTML Pro</title>
+    <style>
+        :root {
+            --bg-gradient: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --primary: #ea580c; /* Naranja característico de HTML */
+            --primary-light: #ffedd5;
+            --shadow: 0 10px 25px -5px rgba(234, 88, 12, 0.05), 0 8px 10px -6px rgba(234, 88, 12, 0.05);
+        }
+
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            margin: 0;
+            padding: 16px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 500px;
+        }
+
+        h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            text-align: center;
+            margin: 24px 0 8px 0;
+            background: linear-gradient(to right, #ea580c, #f97316);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 24px;
+        }
+
+        .panel-control {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: var(--shadow);
+            margin-bottom: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+
+        .search-container {
+            position: relative;
+            margin-bottom: 16px;
+        }
+
+        .search-box {
+            width: 100%;
+            padding: 14px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 14px;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: #f8fafc;
+        }
+
+        .search-box:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fff;
+            box-shadow: 0 0 0 4px rgba(234, 88, 12, 0.1);
+        }
+
+        .audio-settings {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .setting-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+        }
+
+        select {
+            flex-grow: 1;
+            padding: 8px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 10px;
+            background: #fff;
+            font-size: 0.85rem;
+            color: var(--text-main);
+            outline: none;
+            max-width: 65%;
+        }
+
+        input[type="range"] {
+            -webkit-appearance: none;
+            width: 65%;
+            height: 6px;
+            background: #e2e8f0;
+            border-radius: 5px;
+            outline: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            background: var(--primary);
+            cursor: pointer;
+            transition: transform 0.1s;
+        }
+
+        .listado {
+            margin-top: 16px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 20px;
+            border-radius: 18px;
+            margin-bottom: 14px;
+            box-shadow: var(--shadow);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 255, 255, 0.7);
+            transition: transform 0.2s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+        }
+
+        .card-content {
+            padding-right: 12px;
+        }
+
+        .card-content h3 {
+            margin: 0 0 6px 0;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #0f172a;
+        }
+
+        .card-content p {
+            margin: 0;
+            color: var(--text-muted);
+            font-size: 0.92rem;
+            line-height: 1.5;
+        }
+
+        .lang-tag {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.7rem;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 4px 8px;
+            border-radius: 6px;
+            margin-top: 10px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .btn-play {
+            background: var(--primary-light);
+            color: var(--primary);
+            border: none;
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            transition: all 0.2s ease;
+        }
+
+        .btn-play:hover {
+            background: var(--primary);
+            color: white;
+        }
+        
+        .no-results {
+            text-align: center;
+            color: var(--text-muted);
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>HTML Vocall Pro</h1>
+    <div class="subtitle">Diccionario de Arquitectura y Etiquetas Web</div>
+
+    <div class="panel-control">
+        <div class="search-container">
+            <input type="text" id="search" class="search-box" placeholder="🔍 Buscar etiqueta o concepto...">
+        </div>
+        
+        <div class="audio-settings">
+            <div class="setting-row">
+                <label for="voice-select">Voz del sistema:</label>
+                <select id="voice-select"><option>Cargando voces...</option></select>
+            </div>
+            <div class="setting-row">
+                <label for="rate-range">Velocidad (<span id="rate-val">0.9</span>x):</label>
+                <input type="range" id="rate-range" min="0.5" max="1.5" step="0.1" value="0.9">
+            </div>
+        </div>
+    </div>
+
+    <div id="listado" class="listado"></div>
+</div>
+
+<script>
+       // Base de datos de etiquetas HTML (Nombres en inglés, definiciones en español)
+    const baseDatos = [
+        // Estructura Global y Configuración
+        { term: "html", def: "Etiqueta raíz que envuelve absolutamente todo el contenido de un documento HTML.", lang: "en-US" },
+        { term: "head", def: "Contenedor que alberga la información técnica de la página (metadatos, enlaces a estilos, scripts) no visible para el usuario.", lang: "en-US" },
+        { term: "body", def: "Contenedor principal que encierra todo el contenido visible de la página web (textos, imágenes, videos).", lang: "en-US" },
+        { term: "title", def: "Define el título de la página web que se muestra en la pestaña del navegador.", lang: "en-US" },
+        { term: "meta", def: "Define metadatos sobre el documento HTML, como la codificación de caracteres (UTF-8), autor o descripción.", lang: "en-US" },
+        { term: "link", def: "Establece la relación entre el documento actual y un recurso externo, comúnmente usado para enlazar hojas de estilo CSS.", lang: "en-US" },
+        { term: "script", def: "Se utiliza para incrustar o enlazar código de programación ejecutable, generalmente JavaScript.", lang: "en-US" },
+        { term: "style", def: "Permite introducir declaraciones de estilo CSS directamente dentro del documento HTML.", lang: "en-US" },
+
+        // Estructura Semántica (Secciones)
+        { term: "header", def: "Representa la cabecera de una página o de una sección, usualmente contiene logotipos y menús de navegación.", lang: "en-US" },
+        { term: "nav", def: "Bloque que contiene enlaces de navegación interna o externa para recorrer el sitio web.", lang: "en-US" },
+        { term: "main", def: "Define el contenido central y único del documento. Solo debe haber uno por página.", lang: "en-US" },
+        { term: "section", def: "Representa una sección genérica y temática dentro del documento que agrupa contenido relacionado.", lang: "en-US" },
+        { term: "article", def: "Contenedor para una composición autónoma y reutilizable que tiene sentido de forma independiente (ej: un post o noticia).", lang: "en-US" },
+        { term: "aside", def: "Define contenido de soporte o tangencial al contenido principal, frecuentemente usado para barras laterales.", lang: "en-US" },
+        { term: "footer", def: "Representa el pie de página de un documento o sección, donde suelen ir derechos de autor y enlaces legales.", lang: "en-US" },
+
+        // Texto y Bloques Generales
+        { term: "div", def: "Contenedor de bloque genérico sin significado semántico, utilizado exclusivamente para agrupar elementos y aplicar estilos.", lang: "en-US" },
+        { term: "p", def: "Etiqueta utilizada para estructurar bloques de texto en forma de párrafos.", lang: "en-US" },
+        { term: "span", def: "Contenedor en línea genérico sin significado semántico, ideal para aplicar estilos a fragmentos de texto específicos.", lang: "en-US" },
+        { term: "heading (h1 - h6)", def: "Encabezados jerárquicos del documento, donde h1 es el título más importante y h6 el de menor nivel.", lang: "en-US" },
+        { term: "strong", def: "Indica que el texto tiene una importancia mayor y, por defecto, el navegador lo renderiza en negrita.", lang: "en-US" },
+        { term: "em", def: "Aplica énfasis a un fragmento de texto, renderizándolo habitualmente en cursiva.", lang: "en-US" },
+        { term: "br", def: "Produce un salto de línea simple dentro del texto sin crear un nuevo párrafo.", lang: "en-US" },
+        { term: "hr", def: "Crea una línea horizontal que representa una ruptura temática o separación visual entre contenidos.", lang: "en-US" },
+        { term: "blockquote", def: "Representa una sección de texto que ha sido citada directamente de otra fuente o autor.", lang: "en-US" },
+
+        // Listas
+        { term: "ul", def: "Define una lista desordenada cuyos elementos se muestran habitualmente con viñetas o puntos.", lang: "en-US" },
+        { term: "ol", def: "Define una lista ordenada cuyos elementos siguen una secuencia numérica o alfabética.", lang: "en-US" },
+        { term: "li", def: "Representa un elemento o ítem específico dentro de cualquier tipo de lista (ul u ol).", lang: "en-US" },
+
+        // Enlaces y Multimedia
+        { term: "a (anchor)", def: "Etiqueta de anclaje utilizada para crear hipervínculos hacia otras páginas, archivos o secciones externas.", lang: "en-US" },
+        { term: "img", def: "Permite incrustar y desplegar imágenes en el documento mediante el atributo obligatorio 'src'.", lang: "en-US" },
+        { term: "video", def: "Contenedor multimedia para reproducir archivos de video de forma nativa en el navegador.", lang: "en-US" },
+        { term: "audio", def: "Contenedor multimedia diseñado para reproducir pistas de sonido o música sin plugins externos.", lang: "en-US" },
+        { term: "source", def: "Especifica múltiples recursos multimedia alternativos para los elementos de video o audio.", lang: "en-US" },
+
+        // Formularios y Datos
+        { term: "form", def: "Define una sección interactiva con campos que permiten recolectar información del usuario.", lang: "en-US" },
+        { term: "input", def: "Campo de entrada de datos altamente versátil cuyo comportamiento cambia según su atributo 'type' (text, password, checkbox).", lang: "en-US" },
+        { term: "label", def: "Define una etiqueta de texto explicativa vinculada directamente a un elemento de formulario.", lang: "en-US" },
+        { term: "textarea", def: "Control de edición de texto multilínea que permite al usuario escribir textos largos o comentarios.", lang: "en-US" },
+        { term: "button", def: "Representa un botón interactivo para enviar formularios o ejecutar acciones programadas.", lang: "en-US" },
+        { term: "select", def: "Crea un menú o lista desplegable de opciones seleccionables para el usuario.", lang: "en-US" },
+        { term: "option", def: "Define cada una de las alternativas disponibles dentro de un menú desplegable (select).", lang: "en-US" },
+
+        // Tablas
+        { term: "table", def: "Contenedor principal para estructurar y presentar datos complejos en filas y columnas.", lang: "en-US" },
+        { term: "tr", def: "Define una fila completa de celdas dentro de una tabla de datos.", lang: "en-US" },
+        { term: "th", def: "Define una celda de encabezado en una tabla, el texto se muestra centrado y en negrita.", lang: "en-US" },
+        { term: "td", def: "Define una celda de datos estándar dentro de una fila de la tabla.", lang: "en-US" }
+    ];
+    
+    const listadoEl = document.getElementById('listado');
+    const searchEl = document.getElementById('search');
+    const voiceSelect = document.getElementById('voice-select');
+    const rateRange = document.getElementById('rate-range');
+    const rateVal = document.getElementById('rate-val');
+
+    let vocesDisponibles = [];
+
+    function cargarVoces() {
+        if (!('speechSynthesis' in window)) {
+            voiceSelect.innerHTML = '<option>Voz no soportada aquí</option>';
+            return;
+        }
+
+        vocesDisponibles = window.speechSynthesis.getVoices();
+        voiceSelect.innerHTML = '';
+        
+        if (vocesDisponibles.length === 0) {
+            voiceSelect.innerHTML = '<option>Cargando voces...</option>';
+            return;
+        }
+
+        vocesDisponibles.forEach((voz, index) => {
+            const option = document.createElement('option');
+            option.value = index;
+            option.textContent = `${voz.name} (${voz.lang})`;
+            if(voz.default) option.selected = true;
+            voiceSelect.appendChild(option);
+        });
+    }
+
+    if ('speechSynthesis' in window) {
+        if (window.speechSynthesis.onvoiceschanged !== undefined) {
+            window.speechSynthesis.onvoiceschanged = cargarVoces;
+        }
+    }
+
+    function hablar(texto, idiomaOriginal) {
+        if (!('speechSynthesis' in window)) return;
+        window.speechSynthesis.cancel(); 
+
+        const utterance = new SpeechSynthesisUtterance(texto);
+        utterance.rate = parseFloat(rateRange.value);
+        
+        const vozSeleccionada = vocesDisponibles[voiceSelect.value];
+        if (vozSeleccionada) {
+            utterance.voice = vozSeleccionada;
+            utterance.lang = vozSeleccionada.lang;
+        } else {
+            utterance.lang = idiomaOriginal;
+        }
+
+        window.speechSynthesis.speak(utterance);
+    }
+
+    function renderizarDiccionario(terminos) {
+        listadoEl.innerHTML = '';
+        
+        if(terminos.length === 0) {
+            listadoEl.innerHTML = `<div class="no-results">No se encontraron términos de HTML que coincidan.</div>`;
+            return;
+        }
+
+        terminos.forEach(item => {
+            const card = document.createElement('div');
+            card.className = 'card';
+            card.innerHTML = `
+                <div class="card-content">
+                    <h3>${item.term}</h3>
+                    <p>${item.def}</p>
+                    <span class="lang-tag">${item.lang}</span>
+                </div>
+                <button class="btn-play" title="Escuchar">🔊</button>
+            `;
+            
+            card.querySelector('.btn-play').addEventListener('click', () => {
+                hablar(item.term, item.lang);
+            });
+
+            listadoEl.appendChild(card);
+        });
+    }
+
+    searchEl.addEventListener('input', (e) => {
+        const busqueda = e.target.value.toLowerCase();
+        const filtrados = baseDatos.filter(item => 
+            item.term.toLowerCase().includes(busqueda) || 
+            item.def.toLowerCase().includes(busqueda)
+        );
+        renderizarDiccionario(filtrados);
+    });
+
+    rateRange.addEventListener('input', (e) => {
+        rateVal.textContent = e.target.value;
+    });
+
+    cargarVoces();
+    renderizarDiccionario(baseDatos);
+</script>
+
+</body>
+</html>
